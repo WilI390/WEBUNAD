@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hardware Store Nuts and Bolts - Ventas en Línea</title>
-    
+    <title>Hardware Store Nuts and Bolts - Inicio</title>
+    <!-- Enlace a CSS -->
     <link rel="stylesheet" href="styles/styles.css">
-    
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnH1z4FfK1j3H/8w8/wR4+ODsP/dxtZtC8vXPGkNexuN5N5P9Vn9pBm7EMJEuXvblPFVgIAw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnH1z4FfK1j3H/8w8/wR4+ODsP/dxtZtC8vXPGkNexuN5N5P9Vn9pBm7EMJEuXvblPFVgIAw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5QT1C9G4D"></script>
 <script>
@@ -22,7 +22,7 @@
 
 </head>
 <body>
-    
+    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">
@@ -44,62 +44,59 @@
     </header>
 
     
-    <section class="ventas">
-        <div class="container">
-            <h2>Ventas en Línea</h2>
-            <p>Explora y compra nuestros productos directamente desde nuestra tienda en línea. Disfruta de una experiencia de compra fácil y segura.</p>
-            <div class="productos-grid">
-                
-                <div class="producto-card">
-                    <img src="images/producto1.jpg" alt="Pintura Automotriz">
-                    <h3>Pintura Automotriz</h3>
-                    <p class="precio">$25.000</p>
-                    <div class="producto-actions">
-                        <button class="btn btn-primary">Añadir al Carrito</button>
-                        <button class="btn btn-secondary">Comprar Ahora</button>
-                    </div>
-                </div>
-                
-                <div class="producto-card">
-                    <img src="images/producto2.jpg" alt="Soldadora MIG">
-                    <h3>Soldadora MIG</h3>
-                    <p class="precio">$150.000</p>
-                    <div class="producto-actions">
-                        <button class="btn btn-primary">Añadir al Carrito</button>
-                        <button class="btn btn-secondary">Comprar Ahora</button>
-                    </div>
-                </div>
-                
-                <div class="producto-card">
-                    <img src="images/producto3.jpg" alt="Kit de Ornamentación Metálica">
-                    <h3>Kit de Ornamentación Metálica</h3>
-                    <p class="precio">$80.000</p>
-                    <div class="producto-actions">
-                        <button class="btn btn-primary">Añadir al Carrito</button>
-                        <button class="btn btn-secondary">Comprar Ahora</button>
-                    </div>
-                </div>
-                
-                <div class="producto-card">
-                    <img src="images/producto4.jpg" alt="Compresor de Aire">
-                    <h3>Compresor de Aire</h3>
-                    <p class="precio">$200.000</p>
-                    <div class="producto-actions">
-                        <button class="btn btn-primary">Añadir al Carrito</button>
-                        <button class="btn btn-secondary">Comprar Ahora</button>
-                    </div>
-                </div>
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Todo para Ornamentación y Talleres de Latonería y Pintura</h2>
+            <p>28 años proporcionando los mejores productos para tus proyectos</p>
+            <div class="hero-buttons">
+                <a href="ventas.html" class="btn btn-primary">Comprar Ahora</a>
+                <a href="cotizaciones.html" class="btn btn-secondary">Solicitar Cotización</a>
             </div>
         </div>
     </section>
 
     
+    <section id="productos" class="productos">
+        <div class="container">
+            <h2>Productos Destacados</h2>
+            <div class="productos-grid">
+                <?php
+                include 'conexion.php'; // Conexión a la base de datos
+    
+                // Consulta para obtener los productos
+                $sql = "SELECT id, nombre, precio, imagen FROM productos";
+                $result = $conn->query($sql);
+    
+                if ($result->num_rows > 0) {
+                    // Mostrar cada producto
+                    while ($row = $result->fetch_assoc()) {
+                        echo '<div class="producto-card">';
+                        echo '<img src="images/' . $row["imagen"] . '" alt="' . $row["nombre"] . '">';
+                        echo '<h3>' . $row["nombre"] . '</h3>';
+                        echo '<p class="precio">$' . number_format($row["precio"], 2) . '</p>';
+                        echo '<div class="producto-actions">';
+                        echo '<a href="ventas.html" class="btn btn-primary">Comprar</a>';
+                        echo '<a href="cotizaciones.html" class="btn btn-secondary">Cotizar</a>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
+                } else {
+                    echo '<p>No hay productos disponibles en este momento.</p>';
+                }
+    
+                $conn->close(); // Cerrar la conexión
+                ?>
+            </div>
+        </div>
+    </section>
+
+   
     <footer id="contacto">
         <div class="container">
             <div class="footer-info">
                 <p><strong>Dirección:</strong> Calle 31D sur 13-87, Bogotá, Colombia</p>
                 <p><strong>Teléfono:</strong> +52 350 747 5930</p>
-                <p><strong>Correo:</strong> contactowclarounad@hardwarestore.com</p>
+                <p><strong>Correo:</strong> contacto@wclarounadhardwarestore.com</p>
             </div>
             <div class="footer-social">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
